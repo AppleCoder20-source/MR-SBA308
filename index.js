@@ -171,7 +171,7 @@ function getLearnerData(course, ag, submissions) {
     if(status === 400){
       continue;
     }
-    let SubmitAvg = (score / assignmentMaxPoints[assignmentID]).toFixed(2); //Calculations will be like  140/150
+    let SubmitAvg = (score / assignmentMaxPoints[assignmentID]).toFixed(2); //Calculations will be like  125/150 b/c of 10 % deduct
     learner.totalScore += score;
     learner.totalPoints += assignmentMaxPoints[assignmentID];
 
