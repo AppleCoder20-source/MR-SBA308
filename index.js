@@ -166,9 +166,11 @@ function getLearnerData(course, ag, submissions) {
       console.log(` Learner ID ${ID}:, Assignment ID: ${assignmentID}, 10 pts lost`)
     }
     let learner = Learner(learners, ID);
-
+  
     //skip over 400
-
+    if(status === 400){
+      continue;
+    }
     let SubmitAvg = (score / assignmentMaxPoints[assignmentID]).toFixed(2); //Calculations will be like  140/150
     learner.totalScore += score;
     learner.totalPoints += assignmentMaxPoints[assignmentID];
