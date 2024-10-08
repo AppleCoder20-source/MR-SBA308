@@ -6,13 +6,13 @@ In this SBA we were tasked to implement functions that gathers data, processes i
 
 You will be provided with four different types of data:
 A CourseInfo object, which looks like this:
-{
+```{
   "id": number,
   "name": string,
 }
-
+```
 An AssignmentGroup object, which looks like this:
-{
+```{
   "id": number,
   "name": string,
   // the ID of the course the assignment group belongs to
@@ -21,9 +21,9 @@ An AssignmentGroup object, which looks like this:
   "group_weight": number,
   "assignments": [AssignmentInfo],
 }
-
+```
 Each AssignmentInfo object within the assignments array looks like this:
-{
+```{
   "id": number,
   "name": string,
   // the due date for the assignment
@@ -31,7 +31,7 @@ Each AssignmentInfo object within the assignments array looks like this:
   // the maximum points possible for the assignment
   "points_possible": number,
 }
-
+```
 An array of LearnerSubmission objects, which each look like this:
 ```
 {
@@ -41,8 +41,10 @@ An array of LearnerSubmission objects, which each look like this:
       "submitted_at": Date string,
       "score": number
     }
-}```
+}
+```
 Your goal is to analyze and transform this data such that the output of your program is an array of objects, each containing the following information in the following format:
+```
 {
     // the ID of the learner for which this data has been collected
     "id": number,
@@ -58,6 +60,7 @@ Your goal is to analyze and transform this data such that the output of your pro
     // if an assignment is not yet due, it should not be included in either
     // the average or the keyed dictionary of scores
 }
+```
 
 If an AssignmentGroup does not belong to its course (mismatching course_id), your program should throw an error, letting the user know that the input was invalid. Similar data validation should occur elsewhere within the program.
 You should also account for potential errors in the data that your program receives. What if points_possible is 0? You cannot divide by zero. What if a value that you are expecting to be a number is instead a string? 
