@@ -195,7 +195,6 @@ function getLearnerData(course, ag, submissions) {
 
     console.log(" "); // Spacing between output
   });
-
   return learners;
 }
 getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions);
