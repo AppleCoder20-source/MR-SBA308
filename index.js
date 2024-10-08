@@ -90,6 +90,34 @@ const LearnerSubmissions = [
   },
 ];
 
+function calculateGrades(learnerData) {
+  try {
+    // Check for division by zero case
+    if (learnerData.totalPoints === 0) {
+      throw new Error("Division by zero");
+    }
+    const avg = learnerData.totalScore / learnerData.totalPoints;
+    const finalGrade = (avg * 100).toFixed(2) + " %";
+    return {
+      avg: avg,
+      finalGrade: finalGrade
+    };
+  } catch (error) {
+    console.log( error);
+    return {
+      avg: "inc", // Show Inc to users, if there is any calculation errors on instructors end 
+      finalGrade: "inc"
+    };
+  }
+}
+
+function Deadline(submitDate, tasks) {
+  if (new Date(submitDate) > new Date(tasks.due_at)) {
+    return "Late";
+  } else {
+    return "On time";
+  }
+}
 
 function Learner(learners, ID) {
   // Add learners to class
@@ -140,7 +168,7 @@ function getLearnerData(course, ag, submissions) {
     let learner = Learner(learners, ID);
 
     //skip over 400
-    
+
     let SubmitAvg = (score / assignmentMaxPoints[assignmentID]).toFixed(2); //Calculations will be like  140/150
     learner.totalScore += score;
     learner.totalPoints += assignmentMaxPoints[assignmentID];
