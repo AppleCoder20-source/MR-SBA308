@@ -33,6 +33,7 @@ Each AssignmentInfo object within the assignments array looks like this:
 }
 
 An array of LearnerSubmission objects, which each look like this:
+```
 {
     "learner_id": number,
     "assignment_id": number,
@@ -40,7 +41,7 @@ An array of LearnerSubmission objects, which each look like this:
       "submitted_at": Date string,
       "score": number
     }
-}
+}```
 Your goal is to analyze and transform this data such that the output of your program is an array of objects, each containing the following information in the following format:
 {
     // the ID of the learner for which this data has been collected
