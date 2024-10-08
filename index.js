@@ -168,7 +168,7 @@ function getLearnerData(course, ag, submissions) {
     let learner = Learner(learners, ID);
   
     //skip over 400
-    if(status === 400){
+    if(score === 400){
       continue;
     }
     let SubmitAvg = (score / assignmentMaxPoints[assignmentID]).toFixed(2); //Calculations will be like  125/150 b/c of 10 % deduct
