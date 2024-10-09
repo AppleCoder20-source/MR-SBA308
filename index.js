@@ -151,12 +151,12 @@ function getLearnerData(course, ag, submissions) {
   let learners = [];
 
   // Iterate over submissions
-  for (let i = 0; i < submissions.length; i++) {
-    let submission = submissions[i];
-    let ID = submission.learner_id;
-    let assignmentID = submission.assignment_id;
-    let score = submission.submission.score;
-    let submitTime = submission.submission.submitted_at;
+  for (let i = 0; i < LearnerSubmissions.length; i++) {
+    let student = LearnerSubmissions[i];
+    let ID = student.learner_id;
+    let assignmentID = student.assignment_id;
+    let score = student.submission.score;
+    let submitTime = student.submission.submitted_at;
     let tasks = ag.assignments.find(a => a.id === assignmentID); //stackoverflow for this 
     let status = Deadline(submitTime, tasks);
     let percent = 15;
@@ -189,8 +189,8 @@ function getLearnerData(course, ag, submissions) {
     let grades = calculateGrades(learner);
     console.log(`Learner ID: ${learner.id}, Avg: ${grades.avg}, Final Grade: ${grades.finalGrade}`);
 
-    learner.submissions.forEach(submission => {
-      console.log(`  Assignment ID: ${submission.assignmentID}, Avg: ${submission.SubmitAvg}, Submitted At: ${submission.submitTime}, Status: ${submission.status}, Grade: ${submission.score} %`);
+    learner.submissions.forEach(Data => {
+      console.log(`  Assignment ID: ${Data.assignmentID}, Avg: ${Data.SubmitAvg}, Submitted At: ${Data.submitTime}, Status: ${Data.status}, Grade: ${Data.score} %`);
     });
 
     console.log(" "); // Spacing between output
