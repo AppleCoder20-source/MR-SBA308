@@ -151,8 +151,8 @@ function getLearnerData(course, ag, submissions) {
   let learners = [];
 
   // Iterate over submissions
-  for (let i = 0; i < LearnerSubmissions.length; i++) {
-    let student = LearnerSubmissions[i];
+  for (let i = 0; i < submissions.length; i++) {
+    let student = submissions[i];
     let ID = student.learner_id;
     let assignmentID = student.assignment_id;
     let score = student.submission.score;
@@ -161,13 +161,14 @@ function getLearnerData(course, ag, submissions) {
     let status = Deadline(submitTime, tasks);
     let percent = 15;
 
+    //Checks if a student is late, if so deduct from percent 
     if(status === "Late"){
       score -= percent;
       console.log(` Learner ID ${ID}:, Assignment ID: ${assignmentID}, 10 pts lost`)
     }
     let learner = Learner(learners, ID);
   
-    //skip over 400
+    //skip over 400 using a continue statement
     if(score === 400){
       continue;
     }
@@ -186,14 +187,14 @@ function getLearnerData(course, ag, submissions) {
   }
    //Showcase Output from Learners Arrays
    learners.forEach(learner => {
-    let grades = calculateGrades(learner);
+    let grades = calculateGrades(learner); // invoke from grades function 
     console.log(`Learner ID: ${learner.id}, Avg: ${grades.avg}, Final Grade: ${grades.finalGrade}`);
 
     learner.submissions.forEach(Data => {
-      console.log(`  Assignment ID: ${Data.assignmentID}, Avg: ${Data.SubmitAvg}, Submitted At: ${Data.submitTime}, Status: ${Data.status}, Grade: ${Data.score} %`);
+      console.log(`Assignment ID: ${Data.assignmentID}, Avg: ${Data.SubmitAvg}, Submitted At: ${Data.submitTime}, Status: ${Data.status}, Grade: ${Data.score} %`);
     });
 
-    console.log(" "); // Spacing between output
+    console.log("       "); // Spacing between output to make it more organized
   });
   return learners;
 }
