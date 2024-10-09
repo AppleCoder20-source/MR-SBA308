@@ -3,6 +3,7 @@
 In this SBA we were tasked to implement functions that gathers data, processes it, and then outputs a consistent result as described by a specification. This is a very typical situation in industry, and this particular scenario has been modified from a real application. The data you will use is provided below.
 
 ## Description
+This SBA was meant to test our understanding of JS functions, loops, conditonals, as well as objects and arrays
 
 You will be provided with four different types of data:
 A CourseInfo object, which looks like this:
