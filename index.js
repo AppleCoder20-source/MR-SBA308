@@ -105,7 +105,6 @@ function calculateGrades(learnerData) {
     if (totalPoints === 0) {
       throw new Error("Division by zero");
     }
-
     const avg = totalScore / totalPoints;
     const finalGrade = (avg * 100).toFixed(2) + " %";
 
@@ -169,7 +168,7 @@ function getLearnerData(course, ag, submissions) {
     let assignmentID = student.assignment_id;
     let score = student.submission.score;
     let submitTime = student.submission.submitted_at;
-    let tasks = timeMap[assignmentID]
+    let tasks = timeMap[assignmentID];
     let status = Deadline(submitTime, tasks);
     let percent = 15;
 
@@ -183,8 +182,8 @@ function getLearnerData(course, ag, submissions) {
       continue;
     }
     let learner = Learner(learners, ID);
-    let maxPoints = assignmentMaxPoints[assignmentID];
-    let SubmitAvg = (score / maxPoints) //This will do calculations like (140-15)/150 
+    let maxPoints = assignmentMaxPoints[assignmentID]; 
+    let SubmitAvg = (score / maxPoints) ; //This will do calculations like (125)/150 
 
     // Push learner submissions into array
     learner.submissions.push({
