@@ -155,7 +155,7 @@ function getLearnerData(course, ag, submissions) {
 
   let assignmentMaxPoints = {}; 
   let timeMap = {};
-  //assigns an ID with total possible points a learner can get in an assignment
+  //assigns each learner ID with total possible points a learner can get in an assignment
   for (let i = 0; i < ag.assignments.length; i++) {
     assignmentMaxPoints[ag.assignments[i].id] = ag.assignments[i].points_possible; 
     timeMap[ag.assignments[i].id] = ag.assignments[i]; //Get access to all assignment object properties
