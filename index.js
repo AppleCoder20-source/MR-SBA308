@@ -91,21 +91,34 @@ const LearnerSubmissions = [
 ];
 
 function calculateGrades(learnerData) {
+
+  let totalScore = 0;
+  let totalPoints = 0;
+
+  for (let i = 0; i < learnerData.submissions.length; i++) {
+    let student = learnerData.submissions[i];
+    let score = student.score;
+    let maxPoints = student.maxPoints;
+    totalScore += score;
+    totalPoints += maxPoints;
+  }
   try {
-    // Check for division by zero case
-    if (learnerData.totalPoints === 0) {
+    if (totalPoints === 0) {
       throw new Error("Division by zero");
     }
-    const avg = learnerData.totalScore / learnerData.totalPoints;
+
+    const avg = totalScore / totalPoints;
     const finalGrade = (avg * 100).toFixed(2) + " %";
+
     return {
       avg: avg,
       finalGrade: finalGrade
     };
   } catch (error) {
-    console.log( error);
+    console.log(error);
+
     return {
-      avg: "inc", // Show Inc to users, if there is any calculation errors on instructors end 
+      avg: "inc", // Show "inc" to users if there are any calculation errors on the instructor's end
       finalGrade: "inc"
     };
   }
@@ -123,13 +136,11 @@ function Learner(learners, ID) {
   // Add learners to class
   for (let i = 0; i < learners.length; i++) {
     if (learners[i].id === ID) {
-      return learners[i]; 
+      return learners[i];
     }
   }
   let newLearner = {
-    id: ID,
-    totalScore: 0,
-    totalPoints: 0,
+    id: ID, //add learner ID  125,132
     submissions: []
   };
   learners.push(newLearner);
@@ -144,7 +155,7 @@ function getLearnerData(course, ag, submissions) {
   }
 
   let assignmentMaxPoints = {};
-  // Total points to get in an assignment
+  // Calculates total points possiblr to get in an assignment
   for (let i = 0; i < ag.assignments.length; i++) {
     assignmentMaxPoints[ag.assignments[i].id] = ag.assignments[i].points_possible;
   }
@@ -157,47 +168,46 @@ function getLearnerData(course, ag, submissions) {
     let assignmentID = student.assignment_id;
     let score = student.submission.score;
     let submitTime = student.submission.submitted_at;
-    let tasks = ag.assignments.find(a => a.id === assignmentID); //stackoverflow for this 
+    let tasks = ag.assignments.find(a => a.id === assignmentID);
     let status = Deadline(submitTime, tasks);
     let percent = 15;
 
-    //Checks if a student is late, if so deduct from percent 
-    if(status === "Late"){
+    // Check if a student is late; if so, deduct points
+    if (status === "Late") {
       score -= percent;
-      console.log(` Learner ID ${ID}:, Assignment ID: ${assignmentID}, 10 pts lost`)
+      console.log(` Learner ID ${ID}: Assignment ID: ${assignmentID}, 10% deduction from grade` );
     }
-    let learner = Learner(learners, ID);
-  
-    //skip over 400 using a continue statement
-    if(score === 400){
+    // Skip over score of 400 using a continue statement
+    if (score === 400) {
       continue;
     }
-    let SubmitAvg = (score / assignmentMaxPoints[assignmentID]).toFixed(2); //Calculations will be like  125/150 b/c of 10 % deduct
-    learner.totalScore += score;
-    learner.totalPoints += assignmentMaxPoints[assignmentID];
+    let learner = Learner(learners, ID);
+    let maxPoints = assignmentMaxPoints[assignmentID];
+    let SubmitAvg = (score / maxPoints) //This will do calculations like (140-15)/150 
 
-    //Push learner submissions in array 
+    // Push learner submissions into array
     learner.submissions.push({
       assignmentID: assignmentID,
       submitTime: submitTime,
       status: status,
       score: score,
+      maxPoints: maxPoints,
       SubmitAvg: SubmitAvg
     });
   }
-   //Showcase Output from Learners Arrays
-   learners.forEach(learner => {
-    let grades = calculateGrades(learner); // invoke from grades function 
+
+  // Showcase output from learners array
+  learners.forEach(learner => {
+    let grades = calculateGrades(learner); // Invoke from grades function
     console.log(`Learner ID: ${learner.id}, Avg: ${grades.avg}, Final Grade: ${grades.finalGrade}`);
 
     learner.submissions.forEach(Data => {
       console.log(`Assignment ID: ${Data.assignmentID}, Avg: ${Data.SubmitAvg}, Submitted At: ${Data.submitTime}, Status: ${Data.status}, Grade: ${Data.score} %`);
     });
 
-    console.log("       "); // Spacing between output to make it more organized
+    console.log("       "); // Spacing between outputs to make it more organized
   });
   return learners;
 }
-getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions);
 
-  
+getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions);
