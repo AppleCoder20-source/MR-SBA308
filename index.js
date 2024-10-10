@@ -91,14 +91,13 @@ const LearnerSubmissions = [
 ];
 
 function calculateGrades(learnerData) {
-
   let totalScore = 0;
   let totalPoints = 0;
 
   for (let i = 0; i < learnerData.submissions.length; i++) {
     let student = learnerData.submissions[i];
     let score = student.score;
-    let maxPoints = student.maxPoints;
+    let maxPoints = student.maxPoints; //score and maxPoints gives us access to
     totalScore += score;
     totalPoints += maxPoints;
   }
@@ -154,10 +153,12 @@ function getLearnerData(course, ag, submissions) {
     return;
   }
 
-  let assignmentMaxPoints = {};
-  // Calculates total points possiblr to get in an assignment
+  let assignmentMaxPoints = {}; 
+  let timeMap = {};
+  //assigns an ID with total possible points a learner can get in an assignment
   for (let i = 0; i < ag.assignments.length; i++) {
-    assignmentMaxPoints[ag.assignments[i].id] = ag.assignments[i].points_possible;
+    assignmentMaxPoints[ag.assignments[i].id] = ag.assignments[i].points_possible; 
+    timeMap[ag.assignments[i].id] = ag.assignments[i]; //Get access to all assignment object properties
   }
   let learners = [];
 
@@ -168,7 +169,7 @@ function getLearnerData(course, ag, submissions) {
     let assignmentID = student.assignment_id;
     let score = student.submission.score;
     let submitTime = student.submission.submitted_at;
-    let tasks = ag.assignments.find(a => a.id === assignmentID);
+    let tasks = timeMap[assignmentID]
     let status = Deadline(submitTime, tasks);
     let percent = 15;
 
