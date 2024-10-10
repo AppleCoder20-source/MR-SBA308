@@ -97,7 +97,7 @@ function calculateGrades(learnerData) {
   for (let i = 0; i < learnerData.submissions.length; i++) {
     let student = learnerData.submissions[i];
     let score = student.score;
-    let maxPoints = student.maxPoints; //score and maxPoints gives us access to
+    let maxPoints = student.maxPoints; 
     totalScore += score;
     totalPoints += maxPoints;
   }
